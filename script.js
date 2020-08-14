@@ -4,30 +4,37 @@ const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
+const errorContainer = document.getElementById('error-container');
+const errorText = document.getElementById('error-message');
+var errorCounter = 0;
 
-// Show Loading
-function loading() {
+function showLoadingSpinner() {
     // While loading hide the quote container and display the loading animation.
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
-// Hide Loading
-function complete() {
+
+function removeLoadingSpinner() {
     // If the container is hidden then we will switch them.
     if (quoteContainer.hidden) {
         loader.hidden = true;
         quoteContainer.hidden = false;
     }
+}
 
+function overloadError() {
+    errorContainer.hidden = false
+    quoteContainer.hidden = true;
+    loader.hidden = true;
 }
 
 // Get Quote From API
 async function getQuote() {
     // Show the loading at the beginning of the getQuote process.
-    loading();
+    showLoadingSpinner();
     // Using proxy API for CORS issue and combine them
-    const proxyUrl = 'http://cors-anywhere.herokuapp.com/';
+    const proxyUrl = 'https://rocky-coast-07934.herokuapp.com/';
     const apiUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
     try {
         const response = await fetch(proxyUrl + apiUrl);
@@ -48,13 +55,17 @@ async function getQuote() {
             authorText.innerText = data.quoteAuthor;
         }
         // After the data been assigned
-        complete();
-        
+        removeLoadingSpinner();
+
         // console.log(data);
     } catch (error) {
-        // Rerun the function as there is some API token problem
-        getQuote();
-        // console.log('Wait, where is the quote? ' + error);
+        errorCounter++;
+        console.log(errorCounter + error);
+        if (errorCounter > 5){
+            overloadError();
+        } else {
+            getQuote();
+        }
     }
 }
 
