@@ -14,8 +14,25 @@
     <!-- Style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Meta Tags -->
+    <meta property="og:url" content="https://williamlowyi.github.io/quote-generator/" />
+    <meta property="og:type" content="website" /> 
+    <meta property="og:title" content="Quote Generator" />
+    <meta property="og:description" content="Automate random quote generator. Try it our" />
 </head>
 <body>
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+
     <!-- div.quote-container#quote-container: we use this like a shortcut to create div with class and id -->
     <div class="quote-container" id="quote-container">
         <!-- Quote -->
@@ -35,6 +52,9 @@
                 <i class="fab fa-twitter"></i>
             </button>
             <button id="new-quote">New Quote</button>
+            <button class="facebook-button" id="facebook" title="Share this on Facebook!">
+                <i class="fab fa-facebook-f"></i>
+            </button>
         </div>
 
     </div>

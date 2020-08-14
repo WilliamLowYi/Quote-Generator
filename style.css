@@ -67,7 +67,7 @@ button {
     color: #ffff;
     background-color: #333;
     outline: none;
-    padding: 0.5rem 1.8rem;
+    padding: 0.5rem 1.7rem;
 }
 
 button:hover {
@@ -88,6 +88,13 @@ button:active {
     font-size: 1.5rem;
 }
 
+.fa-facebook-f {
+    font-size: 1.5rem;
+}
+
+.facebook-button:hover {
+    background-color: #3B5998;
+}
 /* Loader */
 .loader {
     border: 16px solid #f3f3f3; 

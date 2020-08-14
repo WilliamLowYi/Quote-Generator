@@ -7,6 +7,8 @@ const loader = document.getElementById('loader');
 const errorContainer = document.getElementById('error-container');
 const errorText = document.getElementById('error-message');
 var errorCounter = 0;
+const facebookBtn = document.getElementById('facebook');
+
 
 function showLoadingSpinner() {
     // While loading hide the quote container and display the loading animation.
@@ -61,7 +63,7 @@ async function getQuote() {
     } catch (error) {
         errorCounter++;
         console.log(errorCounter + error);
-        if (errorCounter > 5){
+        if (errorCounter > 10){
             overloadError();
         } else {
             getQuote();
@@ -78,9 +80,24 @@ function tweetQuote() {
     window.open(twitterUrl, '_blank');
 }
 
+// Facebook Share Quote
+function facebookShareQuote() {
+    FB.ui(
+        {   
+            app_id: '1486873724938940',
+            display: 'popup',
+            method: 'share',
+            href: 'https://williamlowyi.github.io/quote-generator/',
+            quote: quoteText + ' - ' + authorText,
+        },
+        function(response){}
+    );
+}
+
 // Event Listeners
 newQuoteBtn.addEventListener('click', getQuote);
 twitterBtn.addEventListener('click', tweetQuote);
+facebookBtn.addEventListener('click', facebookShareQuote);
 
 // On Load 
 getQuote();
